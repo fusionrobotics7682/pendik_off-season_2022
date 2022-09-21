@@ -30,7 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // RPM
     double currentRPM = shooter1.getEncoder().getVelocity();
 
-    shooter1.set(configurer.getPIDController(Constants.ShooterConstants.KP, Constants.ShooterConstants.KI, Constants.ShooterConstants.KD).calculate(currentRPM, setPointRPM));
+    shooter1.set(configurer.getPidController(Constants.ShooterConstants.KP, Constants.ShooterConstants.KI, Constants.ShooterConstants.KD).calculate(currentRPM, setPointRPM));
     shooter2.follow(shooter1);
   }
   
