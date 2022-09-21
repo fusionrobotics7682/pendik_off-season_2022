@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -35,7 +35,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void getOut(){
-    solenoids.set(Value.kOff);
+    solenoids.set(Value.kForward);
     intake1.set(-1);
     intake2.set(-1);
   }

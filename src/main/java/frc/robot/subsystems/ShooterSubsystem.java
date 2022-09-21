@@ -8,8 +8,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.auto_core.AutoConfigurer;
+import frc.robot.constants.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
 

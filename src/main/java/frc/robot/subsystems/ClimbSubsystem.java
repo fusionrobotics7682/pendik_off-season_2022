@@ -4,13 +4,16 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
 
-  Victor climb1 = new Victor(Constants.ClimbConstants.SHOOTER_1_PIN);
+  Victor climb1 = new Victor(Constants.ClimbConstants.CLIMB_PIN_1);
+
+  MotorControllerGroup climbControllerGroup = new MotorControllerGroup(climb1);
 
   /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {}
@@ -21,14 +24,15 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void climb1(){
-    climb1.set(1);
+    climbControllerGroup.set(1);
   }
 
   public void release(){
-    climb1.set(-1);
+    climbControllerGroup.setInverted(true);
+    climbControllerGroup.set(1);
   }
 
   public void stop(){
-    climb1.set(0);
+    climbControllerGroup.stopMotor();
   }
 }

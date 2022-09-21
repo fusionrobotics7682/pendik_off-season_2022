@@ -16,23 +16,24 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.auto_core.AutoConfigurer;
 import frc.robot.auto_core.CircularDrive;
 import frc.robot.auto_core.RotationalDrive;
 import frc.robot.auto_core.StraightDrive;
+import frc.robot.constants.Constants;
+import frc.robot.constants.JoystickIOConstants;
+import frc.robot.constants.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
 
   // Motors
-  Victor leftMotor1 = new Victor(0);
-  Victor leftMotor2 = new Victor(1);
-  Victor leftMotor3 = new Victor(2);
+  Victor leftMotor1 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
+  Victor leftMotor2 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
+  Victor leftMotor3 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
 
-  Victor rightMotor1 = new Victor(3);
-  Victor rightMotor2 = new Victor(4);
-  Victor rightMotor3 = new Victor(5);
+  Victor rightMotor1 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_1);
+  Victor rightMotor2 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_2);
+  Victor rightMotor3 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_3);
 
    // Controller Groups
   private final MotorControllerGroup leftControllerGroup = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
@@ -54,12 +55,8 @@ public class DriveSubsystem extends SubsystemBase {
   StraightDrive straightDrive = new StraightDrive(configurer, leftEncoder, rightEncoder);
   CircularDrive circularDrive = new CircularDrive(configurer, rightEncoder, leftEncoder);
   
-
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
-
-  // Joystick for tele-op controls
-  Joystick joystick = new Joystick(0);
 
 /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -85,11 +82,11 @@ public void periodic() {
 }
 
 public void arcadeDrive(){
-  differentialDrive.arcadeDrive(joystick.getRawAxis(1), joystick.getRawAxis(0));
+  differentialDrive.arcadeDrive(JoystickIOConstants.getRawAxis(1), JoystickIOConstants.getRawAxis(0));
 }
 
 public void tankDrive(){
-  differentialDrive.tankDrive(joystick.getRawAxis(1), joystick.getRawAxis(5));
+  differentialDrive.tankDrive(JoystickIOConstants.getRawAxis(1), JoystickIOConstants.getRawAxis(5));
 }
 
 // For encoder drive
@@ -98,10 +95,10 @@ public void basicAutoDrive(double meterSetpoint, double degreeSetpoint){
 }
 
 // For encoder&gyro drive
-public void advancedAutoDrive(double degreesSetpoint, double meterSetpoint){
+/*public void advancedAutoDrive(double degreesSetpoint, double meterSetpoint){
   double [] outputs = circularDrive.calculateArcSetpoints(degreesSetpoint, meterSetpoint);
   differentialDrive.tankDrive(outputs[0], outputs[1]);
-}
+}*/
 
 // For Only Gyro drive
 public void gyroAutoDrive(double degreesSetpoint){
@@ -173,6 +170,10 @@ public void resetNavX(){
   navx.reset();
 }
 
+public void stopDrive(){
+  differentialDrive.stopMotor();
+}
+
 /**
 * Gets the average distance of the two encoders.
 *
@@ -212,6 +213,10 @@ public void setMaxOutput(double maxOutput) {
 /** Zeroes the heading of the robot. */
 public void zeroHeading() {
   navx.reset();
+}
+
+public double getYaw(){
+  return navx.getYaw();
 }
 
 /**

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.constants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -28,12 +28,12 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kLeftMotor1Port = 0;
-    public static final int kLeftMotor2Port = 1;
-    public static final int kLeftMotor3Port = 2;
-    public static final int kRightMotor1Port = 3;
-    public static final int kRightMotor2Port = 4;
-    public static final int kRightMotor3Port = 5;
+    public static final int LEFT_MOTOR_PIN_1 = 0;
+    public static final int LEFT_MOTOR_PIN_2 = 1;
+    public static final int LEFT_MOTOR_PIN_3 = 2;
+    public static final int RIGHT_MOTOR_PIN_1 = 3;
+    public static final int RIGHT_MOTOR_PIN_2 = 4;
+    public static final int RIGHT_MOTOR_PIN_3 = 5;
 
     public static final int[] kLeftEncoderPorts = new int[] {0, 1};
     public static final int[] kRightEncoderPorts = new int[] {2, 3};
@@ -52,7 +52,7 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final int kEncoderCPR = 1024;
+    public static final int kEncoderCPR = 80;
     public static final double kWheelDiameterMeters = 0.15;
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
@@ -92,7 +92,7 @@ public final class Constants {
   }
 
   public static final class ClimbConstants{
-    public static final int SHOOTER_1_PIN = 11;
+    public static final int CLIMB_PIN_1 = 11;
   }
 
   public static final class OIConstants {
