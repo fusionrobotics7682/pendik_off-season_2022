@@ -6,7 +6,7 @@ package frc.robot.commands.n_transaction;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.unit_transaction.chassis_cmd.GoXMeterCmd;
+import frc.robot.commands.unit_transaction.chassis_cmd.auto.GoXMeterCmd;
 import frc.robot.commands.unit_transaction.intake_cmd.tele_op.GetIntakeCmd;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
