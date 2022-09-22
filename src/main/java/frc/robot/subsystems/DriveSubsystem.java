@@ -10,16 +10,15 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.auto_core.AutoConfigurer;
-import frc.robot.auto_core.CircularDrive;
-import frc.robot.auto_core.RotationalDrive;
-import frc.robot.auto_core.StraightDrive;
+import frc.robot.frc_auto_core.AutoConfigurer;
+import frc.robot.frc_auto_core.CircularDrive;
+import frc.robot.frc_auto_core.RotationalDrive;
+import frc.robot.frc_auto_core.StraightDrive;
 import frc.robot.constants.Constants;
 import frc.robot.constants.JoystickIOConstants;
 import frc.robot.constants.Constants.DriveConstants;
@@ -70,7 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
   rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
 
   resetSensors();
-  differentialDrive.setMaxOutput(0.7);
+  differentialDrive.setMaxOutput(Constants.DriveConstants.ROBOT_MAX_SPEED);
   m_odometry = new DifferentialDriveOdometry(navx.getRotation2d());
   }
 

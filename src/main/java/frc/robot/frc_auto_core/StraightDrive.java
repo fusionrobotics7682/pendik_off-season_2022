@@ -32,6 +32,6 @@ public class StraightDrive{
     }
 
     public double getEncodersFeetAverage(){
-        return (leftEncoder.get() + rightEncoder.get() / 2) * AutoConstants.K_DRIVE_TICK_2_FEET;
+        return (leftEncoder.get() + rightEncoder.get() / 2) * Constants.DriveConstants.K_DRIVE_TICK_2_FEET;
     }
 }

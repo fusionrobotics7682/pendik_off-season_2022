@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.auto_core.AutoConfigurer;
+import frc.robot.frc_auto_core.AutoConfigurer;
+import frc.robot.frc_auto_core.VelocityController;
 import frc.robot.constants.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -17,6 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
   CANSparkMax shooter2 = new CANSparkMax(Constants.ShooterConstants.SHOOTER_2_PIN, MotorType.kBrushless);
 
   AutoConfigurer configurer = new AutoConfigurer();
+  VelocityController controller = new VelocityController(configurer, shooter1.getEncoder());
   
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {}
@@ -26,20 +27,23 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void shoot(double setPointRPM){
-    // RPM
-    double currentRPM = shooter1.getEncoder().getVelocity();
-
-    shooter1.set(configurer.getPidController(Constants.ShooterConstants.KP, Constants.ShooterConstants.KI, Constants.ShooterConstants.KD).calculate(currentRPM, setPointRPM));
+  public void shoot(double setPointVelocity, double currentTime){
+    double currentVelocity = controller.runXVelocity(setPointVelocity, currentTime);
+    shooter1.set(currentVelocity);
     shooter2.follow(shooter1);
   }
   
-  public void shootInTarmac(double setPointRPM){
-    shoot(setPointRPM);
+  public void shootInTarmac(double setPointVelocity, double currentTime){
+    shoot(setPointVelocity, currentTime);
   }
 
-  public void shootLaunchpad(double setPointRPM){
-    shoot(setPointRPM);
+  public void shootLaunchpad(double setPointVelocity, double currentTime){
+    shoot(setPointVelocity, currentTime);
+  }
+
+  public void stopMotors(){
+    shooter1.stopMotor();
+    shooter2.stopMotor();
   }
 
 }
