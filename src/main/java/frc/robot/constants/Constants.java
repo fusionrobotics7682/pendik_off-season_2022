@@ -35,6 +35,8 @@ public final class Constants {
     public static final int RIGHT_MOTOR_PIN_2 = 4;
     public static final int RIGHT_MOTOR_PIN_3 = 5;
 
+    public static final double ROBOT_MAX_SPEED = 0.3;
+
     public static final int[] kLeftEncoderPorts = new int[] {0, 1};
     public static final int[] kRightEncoderPorts = new int[] {2, 3};
     public static final boolean kLeftEncoderReversed = false;
@@ -47,6 +49,12 @@ public final class Constants {
     public static final double GYRO_KP = 0.5;
     public static final double GYRO_KI = 0;
     public static final double GYRO_KD = 0;
+
+    public static final double REDUCTION_GEAR = 10.71;
+    public static final double WHEEL_DIAMETER_INCHES = 6;
+    public static final double ENCODER_PPR = 80;
+
+    public static final double K_DRIVE_TICK_2_FEET = REDUCTION_GEAR / Math.PI * WHEEL_DIAMETER_INCHES * ENCODER_PPR / 12;
 
     public static final double kTrackwidthMeters = 0.69;
     public static final DifferentialDriveKinematics kDriveKinematics =
@@ -85,6 +93,12 @@ public final class Constants {
   public static final class ShooterConstants{
     public static final int SHOOTER_1_PIN = 11;
     public static final int SHOOTER_2_PIN = 12;
+
+    public static final double REDUCTION_GEAR = 2;
+    public static final double WHEEL_DIAMETER_INCHES = 5.51;
+    public static final double ENCODER_PPR = 42;
+
+    public static final double K_DRIVE_TICK_2_FEET = REDUCTION_GEAR / Math.PI * WHEEL_DIAMETER_INCHES * ENCODER_PPR / 12;
     
     public static final double KP = 0.5;
     public static final double KI = 0;
