@@ -13,10 +13,10 @@ public class GetInXSecondFeederCmd extends CommandBase {
   FeederSubsystem feederSubsytem;
   Timer timer = new Timer();
 
-  int secondSetpoint;
+  double secondSetpoint;
 
   /** Creates a new GetInXSecondCmd. */
-  public GetInXSecondFeederCmd(FeederSubsystem feederSubsytem, int secondSetpoint) {
+  public GetInXSecondFeederCmd(FeederSubsystem feederSubsytem, double secondSetpoint) {
     this.feederSubsytem = feederSubsytem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feederSubsytem);
