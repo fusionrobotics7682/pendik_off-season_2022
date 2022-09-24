@@ -10,7 +10,7 @@ import frc.robot.commands.unit_transaction.chassis_cmd.auto.GoXMeterCmd;
 import frc.robot.commands.unit_transaction.feeder_cmd.auto.GetInXSecondFeederCmd;
 import frc.robot.commands.unit_transaction.intake_cmd.auto.GetIntakeXSecondCmd;
 import frc.robot.commands.unit_transaction.shooter_cmd.auto.StopShooterCmd;
-import frc.robot.commands.unit_transaction.shooter_cmd.tele_op.ShootInTarmacCmd;
+import frc.robot.commands.unit_transaction.shooter_cmd.tele_op.ShootTarmacCloserTeleCmd;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -26,7 +26,7 @@ public class ThrowTwoBallCmd extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 0.91, false), new GetIntakeXSecondCmd(intakeSubsystem, 3)), 
-      new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 1.21, true), new GetInXSecondFeederCmd(feederSubsystem, 0.7), new ShootInTarmacCmd(shooterSubsystem, 20)),
+      new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 1.21, true), new GetInXSecondFeederCmd(feederSubsystem, 0.7), new ShootTarmacCloserTeleCmd(shooterSubsystem, 20)),
       new GetInXSecondFeederCmd(feederSubsystem, 1.5),
       new StopShooterCmd(shooterSubsystem));
   }

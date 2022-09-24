@@ -9,10 +9,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.unit_transaction.chassis_cmd.auto.GoXMeterCmd;
 import frc.robot.commands.unit_transaction.chassis_cmd.auto.TurnXDegreesCmd;
 import frc.robot.commands.unit_transaction.feeder_cmd.auto.GetInXSecondFeederCmd;
-import frc.robot.commands.unit_transaction.feeder_cmd.tele_op.GetInFeederCmd;
 import frc.robot.commands.unit_transaction.intake_cmd.auto.GetIntakeXSecondCmd;
 import frc.robot.commands.unit_transaction.shooter_cmd.auto.StopShooterCmd;
-import frc.robot.commands.unit_transaction.shooter_cmd.tele_op.ShootInTarmacCmd;
+import frc.robot.commands.unit_transaction.shooter_cmd.tele_op.ShootTarmacCloserTeleCmd;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -36,7 +35,7 @@ public class ThrowThreeBallCmd extends SequentialCommandGroup {
         , new ParallelCommandGroup(
           new GoXMeterCmd(driveSubsystem, 0, 0.91, true),
           new ParallelCommandGroup(
-            new ShootInTarmacCmd(shooterSubsystem, 20),
+            new ShootTarmacCloserTeleCmd(shooterSubsystem, 20),
             new TurnXDegreesCmd(driveSubsystem, 60)
             )
           )
@@ -52,7 +51,7 @@ public class ThrowThreeBallCmd extends SequentialCommandGroup {
         )
         , new GoXMeterCmd(driveSubsystem, 0, 4, true)
         , new ParallelCommandGroup(
-          new ShootInTarmacCmd(shooterSubsystem, 20),
+          new ShootTarmacCloserTeleCmd(shooterSubsystem, 20),
           new TurnXDegreesCmd(driveSubsystem, 60)
         )
         , new GetInXSecondFeederCmd(feederSubsystem, 3)
