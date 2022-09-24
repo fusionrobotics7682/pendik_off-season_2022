@@ -20,4 +20,8 @@ public class JoystickIOConstants{
     public static boolean getRawButtonReleased(int index){
         return joystick.getRawButtonReleased(index);
     }
+
+    public static Joystick getJoystick(){
+        return joystick;
+    }
 }
