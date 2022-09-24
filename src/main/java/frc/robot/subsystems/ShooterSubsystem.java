@@ -33,12 +33,12 @@ public class ShooterSubsystem extends SubsystemBase {
     shooter2.follow(shooter1);
   }
   
-  public void shootInTarmac(double setPointVelocity, double currentTime){
-    shoot(setPointVelocity, currentTime);
+  public void shootTarmacCloser(double currentTime){
+    shoot(22, currentTime);
   }
 
-  public void shootLaunchpad(double setPointVelocity, double currentTime){
-    shoot(setPointVelocity, currentTime);
+  public void shootTarmacFarther(double currentTime){
+    shoot(24.6, currentTime);
   }
 
   public void stopMotors(){
