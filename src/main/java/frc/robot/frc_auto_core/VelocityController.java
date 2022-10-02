@@ -22,10 +22,13 @@ public class VelocityController {
     }
 
     public double runXVelocity(double setpointVelocity, double currentTime){
-        double currentPosition = relativeEncoder.getCountsPerRevolution()/4*Constants.ShooterConstants.K_DRIVE_TICK_2_FEET;
-        double currentVelocity = currentPosition/currentTime;
-
-        output += autoConfigurer.getPidController(Constants.DriveConstants.ENCODER_KP, Constants.DriveConstants.ENCODER_KI, Constants.DriveConstants.ENCODER_KD).calculate(currentVelocity, setpointVelocity);
+        double rpm = relativeEncoder.getVelocity();
+        double velocity = 2* Math.PI * rpm / 60 * 0.22965879265;     
+        output += autoConfigurer.getPidController(
+            Constants.DriveConstants.ENCODER_KP,
+            Constants.DriveConstants.ENCODER_KI,
+            Constants.DriveConstants.ENCODER_KD)
+        .calculate(velocity, setpointVelocity);
         return output;
     }
 

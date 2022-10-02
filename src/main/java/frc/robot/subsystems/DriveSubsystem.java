@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.frc_auto_core.AutoConfigurer;
 import frc.robot.frc_auto_core.CircularDrive;
@@ -27,8 +28,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   // Motors
   Victor leftMotor1 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
-  Victor leftMotor2 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
-  Victor leftMotor3 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
+  Victor leftMotor2 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_2);
+  Victor leftMotor3 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_3);
 
   Victor rightMotor1 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_1);
   Victor rightMotor2 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_2);
@@ -90,7 +91,7 @@ public void tankDrive(){
 
 // For encoder drive
 public void basicAutoDrive(double meterSetpoint, double degreeSetpoint){
-  differentialDrive.arcadeDrive(straightDrive.goXmeter(meterSetpoint), degreeSetpoint);
+  differentialDrive.arcadeDrive(straightDrive.goXmeter(meterSetpoint), rotationalDrive.turnXDegrees(degreeSetpoint));
 }
 
 // For encoder&gyro drive
@@ -133,16 +134,6 @@ public void resetOdometry(Pose2d pose) {
 }
 
 /**
-* Drives the robot using arcade controls.
-*
-* @param fwd the commanded forward movement
-* @param rot the commanded rotation
-*/
-public void arcadeDrive(double fwd, double rot) {
- differentialDrive.arcadeDrive(fwd, rot);
-}
-
-/**
 * Controls the left and right sides of the drive directly with voltages.
 *
 * @param leftVolts the commanded left output
@@ -179,7 +170,7 @@ public void stopDrive(){
 * @return the average of the two encoder readings
 */
 public double getAverageEncoderDistance() {
- return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
+ return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0 * Constants.DriveConstants.K_DRIVE_TICK_2_FEET;
 }
 
 /**
