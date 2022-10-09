@@ -8,19 +8,18 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.triggers.PidTrigger;
+import frc.robot.triggers.PIDTrigger;
 
 public class GoXMeterCmd extends CommandBase {
   DriveSubsystem driveSubsystem;
   double degreesSetpoint;
   double meterSetpoint;
   boolean isForward;
-  Debouncer debouncer = new Debouncer(0.5, DebounceType.kRising);
-  PidTrigger degreeTrigger;
-  PidTrigger meterTrigger;
+  PIDTrigger degreeTrigger;
+  PIDTrigger meterTrigger;
 
   /** Creates a new TurnXDegrees. */
-  public GoXMeterCmd(DriveSubsystem driveSubsystem, double degreesSetpoint, PidTrigger degreeTrigger, PidTrigger meterTrigger, double meterSetpoint, boolean isForward) {
+  public GoXMeterCmd(DriveSubsystem driveSubsystem, double meterSetpoint, double degreesSetpoint, PIDTrigger degreeTrigger, PIDTrigger meterTrigger, boolean isForward) {
     this.driveSubsystem = driveSubsystem;
     this.degreeTrigger = degreeTrigger;
     this.meterTrigger = meterTrigger;
@@ -53,8 +52,8 @@ public class GoXMeterCmd extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double meterTriggerValue = meterTrigger.get(driveSubsystem.getAverageEncoderDistance());
-    double degreeTriggerValue = degreeTrigger.get(driveSubsystem.getYaw());
+    double meterTriggerValue = meterTrigger.checkPidTrigger(driveSubsystem.getAverageEncoderDistance());
+    double degreeTriggerValue = degreeTrigger.checkPidTrigger(driveSubsystem.getYaw());
     
     //return debouncer.calculate(driveSubsystem.getYaw() >= meterSetpoint-0.05 && driveSubsystem.getYaw() <= degreesSetpoint+0.05);
     if(degreeTriggerValue <= degreesSetpoint+3 && degreeTriggerValue >= degreesSetpoint-3 && 

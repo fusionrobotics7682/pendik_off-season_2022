@@ -15,18 +15,19 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.triggers.PIDTrigger;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ThrowTwoBallCmd extends SequentialCommandGroup {
   /** Creates a new ThrowTwoBallScenarioCmd. */
-  public ThrowTwoBallCmd(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, FeederSubsystem feederSubsystem, ShooterSubsystem shooterSubsystem) {
+  public ThrowTwoBallCmd(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, FeederSubsystem feederSubsystem, ShooterSubsystem shooterSubsystem, PIDTrigger degreeTrigger, PIDTrigger meterTrigger) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 0.91, false), new GetIntakeXSecondCmd(intakeSubsystem, 3)), 
-      new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 1.21, true), new GetInXSecondFeederCmd(feederSubsystem, 0.7), new ShootTarmacCloserTeleCmd(shooterSubsystem, 20)),
+      new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 0.91, meterTrigger, degreeTrigger, false), new GetIntakeXSecondCmd(intakeSubsystem, 3)), 
+      new ParallelCommandGroup(new GoXMeterCmd(driveSubsystem, 0, 1.21, meterTrigger, degreeTrigger, true), new GetInXSecondFeederCmd(feederSubsystem, 0.7), new ShootTarmacCloserTeleCmd(shooterSubsystem, 20)),
       new GetInXSecondFeederCmd(feederSubsystem, 1.5),
       new StopShooterCmd(shooterSubsystem));
   }

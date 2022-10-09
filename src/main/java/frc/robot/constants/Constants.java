@@ -17,6 +17,8 @@ package frc.robot.constants;
 // the WPILib BSD license file in the root directory of this project.
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -88,6 +90,8 @@ public final class Constants {
     public static final int FEEDER_1_PIN = 9;
     public static final int FEEDER_2_PIN = 10;
 
+    public static final Port I2C_ROBORIO = Port.kOnboard;
+    public static final Port I2C_NAVX = Port.kMXP;
   }
 
   public static final class ShooterConstants{
@@ -103,6 +107,9 @@ public final class Constants {
     public static final double KP = 0.5;
     public static final double KI = 0;
     public static final double KD = 0;
+    
+    public static final double DEFAULT_BLUE_VALUE = 0.3;
+    public static final double DEFAULT_RED_VALUE = 0.4;
   }
 
   public static final class ClimbConstants{

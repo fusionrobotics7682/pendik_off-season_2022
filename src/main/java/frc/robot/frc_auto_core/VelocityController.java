@@ -21,7 +21,7 @@ public class VelocityController {
         this.relativeEncoder = relativeEncoder;
     }
 
-    public double runXVelocity(double setpointVelocity, double currentTime){
+    public double runXVelocity(double setpointVelocity){
         double rpm = relativeEncoder.getVelocity();
         double velocity = 2* Math.PI * rpm / 60 * 0.22965879265;     
         output += autoConfigurer.getPidController(

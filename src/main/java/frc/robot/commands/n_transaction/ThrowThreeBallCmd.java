@@ -16,11 +16,16 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.triggers.PIDTrigger;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ThrowThreeBallCmd extends SequentialCommandGroup {
+
+  PIDTrigger degreeTrigger = new PIDTrigger();
+  PIDTrigger meterTrigger = new PIDTrigger();
+
   /** Creates a new ThrowThreeBallCmd. */
   public ThrowThreeBallCmd(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, FeederSubsystem feederSubsystem, ShooterSubsystem shooterSubsystem) {
     // Add your commands in the addCommands() call, e.g.
@@ -28,12 +33,12 @@ public class ThrowThreeBallCmd extends SequentialCommandGroup {
     addCommands(
       // Finish 2 ball
       new ParallelCommandGroup(
-        new GoXMeterCmd(driveSubsystem, 0, 0.91, false),
+        new GoXMeterCmd(driveSubsystem, 0, 0.91, meterTrigger, degreeTrigger, false),
         new GetIntakeXSecondCmd(intakeSubsystem, 3)
         )
         , new GetInXSecondFeederCmd(feederSubsystem, 0.7)
         , new ParallelCommandGroup(
-          new GoXMeterCmd(driveSubsystem, 0, 0.91, true),
+          new GoXMeterCmd(driveSubsystem, 0, 0.91, meterTrigger, degreeTrigger, true),
           new ParallelCommandGroup(
             new ShootTarmacCloserTeleCmd(shooterSubsystem, 20),
             new TurnXDegreesCmd(driveSubsystem, 60)
@@ -44,12 +49,12 @@ public class ThrowThreeBallCmd extends SequentialCommandGroup {
         , new TurnXDegreesCmd(driveSubsystem, 0)
 
         // Start last 2 ball
-        , new GoXMeterCmd(driveSubsystem, 0, 3.962, false)
+        , new GoXMeterCmd(driveSubsystem, 0, 3.962, meterTrigger, degreeTrigger, false)
         , new ParallelCommandGroup(
           new GetIntakeXSecondCmd(intakeSubsystem, 3),
           new GetInXSecondFeederCmd(feederSubsystem, 2)
         )
-        , new GoXMeterCmd(driveSubsystem, 0, 4, true)
+        , new GoXMeterCmd(driveSubsystem, 0, 4, meterTrigger, degreeTrigger, true)
         , new ParallelCommandGroup(
           new ShootTarmacCloserTeleCmd(shooterSubsystem, 20),
           new TurnXDegreesCmd(driveSubsystem, 60)

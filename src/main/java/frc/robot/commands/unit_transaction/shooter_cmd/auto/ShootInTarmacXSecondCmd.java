@@ -29,7 +29,7 @@ public class ShootInTarmacXSecondCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      shooterSubsystem.shoot(23, velocityTimer.get());
+      shooterSubsystem.shoot(23);
   }
 
   // Called once the command ends or is interrupted.

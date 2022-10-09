@@ -8,17 +8,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootTarmacAutoCmd extends CommandBase {
+public class ShootIdlingCmd extends CommandBase {
 
-  ShooterSubsystem shooterSubsystem;
-  Timer timer = new Timer();
+  private ShooterSubsystem shooterSubsystem;
+  private Timer timer = new Timer();
 
-  double setPointVelocity;
-
-  /** Creates a new ShootTarmacCommand. */
-  public ShootTarmacAutoCmd(ShooterSubsystem shooterSubsystem, double setPointVelocity) {
+  /** Creates a new ShootIdlingCmd. */
+  public ShootIdlingCmd(ShooterSubsystem shooterSubsystem) {
     this.shooterSubsystem = shooterSubsystem;
-    this.setPointVelocity = setPointVelocity;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooterSubsystem);
   }
@@ -32,13 +29,12 @@ public class ShootTarmacAutoCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSubsystem.shoot(setPointVelocity);
+    shooterSubsystem.shoot(15);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

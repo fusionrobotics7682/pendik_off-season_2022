@@ -14,14 +14,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.unit_transaction.chassis_cmd.tele_op.ArcadeDriveCmd;
 import frc.robot.commands.unit_transaction.feeder_cmd.tele_op.GetInFeederCmd;
 import frc.robot.commands.unit_transaction.feeder_cmd.tele_op.GetOutFeederCmd;
+import frc.robot.commands.unit_transaction.intake_cmd.GetInCmd;
 import frc.robot.commands.unit_transaction.intake_cmd.tele_op.GetIntakeCmd;
 import frc.robot.commands.unit_transaction.intake_cmd.tele_op.GetOuttakeCmd;
+import frc.robot.commands.unit_transaction.shooter_cmd.ShootCmd;
 import frc.robot.commands.unit_transaction.shooter_cmd.tele_op.ShootTarmacCloserTeleCmd;
 import frc.robot.constants.JoystickIOConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.triggers.PIDTrigger;
+import frc.robot.triggers.TimerTrigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,7 +46,9 @@ public class RobotContainer {
   FeederSubsystem feederSubsystem = new FeederSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
-
+  PIDTrigger degreeTrigger = new PIDTrigger();
+  PIDTrigger meterTrigger = new PIDTrigger();
+  TimerTrigger timerTrigger = new TimerTrigger();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -60,11 +66,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(joystick, 1).whileActiveContinuous(new GetIntakeCmd(intakeSubsystem));
+    new JoystickButton(joystick, 2).whileActiveContinuous(new GetInCmd(intakeSubsystem, feederSubsystem));
+    new JoystickButton(joystick, 3).whileActiveContinuous(new ShootCmd(shooterSubsystem, feederSubsystem));
     new JoystickButton(joystick, 4).whileActiveContinuous(new GetOuttakeCmd(intakeSubsystem));
-    new JoystickButton(joystick, 2).whileActiveContinuous(new GetInFeederCmd(feederSubsystem));
-    new JoystickButton(joystick, 3).whileActiveContinuous(new GetOutFeederCmd(feederSubsystem));
-    new JoystickButton(joystick, 5).whileActiveContinuous(new ShootTarmacCloserTeleCmd(shooterSubsystem, 20));
+    new JoystickButton(joystick, 5).whileActiveContinuous(new GetOutFeederCmd(feederSubsystem));
   }
 
   /**

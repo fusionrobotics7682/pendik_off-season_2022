@@ -18,6 +18,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   AutoConfigurer configurer = new AutoConfigurer();
   VelocityController controller = new VelocityController(configurer, shooter1.getEncoder());
+  double currentVelocity;
   
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {}
@@ -27,23 +28,31 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void shoot(double setPointVelocity, double currentTime){
-    double currentVelocity = controller.runXVelocity(setPointVelocity, currentTime);
+  public void shoot(double setPointVelocity){
+    currentVelocity = controller.runXVelocity(setPointVelocity);
     shooter1.set(currentVelocity);
     shooter2.follow(shooter1);
   }
   
-  public void shootTarmacCloser(double currentTime){
-    shoot(22, currentTime);
+  public void shootTarmacCloser(){
+    shoot(22);
   }
 
-  public void shootTarmacFarther(double currentTime){
-    shoot(24.6, currentTime);
+  public void shootTarmacFarther(){
+    shoot(24.6);
+  }
+
+  public void idleShot(){
+    shoot(15);
   }
 
   public void stopMotors(){
     shooter1.stopMotor();
     shooter2.stopMotor();
+  }
+
+  public double getCurrentVelocity(){
+    return currentVelocity;
   }
 
 }

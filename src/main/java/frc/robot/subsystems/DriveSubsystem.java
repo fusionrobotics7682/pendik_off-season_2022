@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.IMotorController;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -27,20 +30,16 @@ import frc.robot.constants.Constants.DriveConstants;
 public class DriveSubsystem extends SubsystemBase {
 
   // Motors
-  Victor leftMotor1 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
-  Victor leftMotor2 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_2);
-  Victor leftMotor3 = new Victor(Constants.DriveConstants.LEFT_MOTOR_PIN_3);
+  WPI_VictorSPX leftMotor1 = new WPI_VictorSPX(Constants.DriveConstants.LEFT_MOTOR_PIN_1);
+  WPI_VictorSPX leftMotor2 = new WPI_VictorSPX(Constants.DriveConstants.LEFT_MOTOR_PIN_2);
+  WPI_VictorSPX leftMotor3 = new WPI_VictorSPX(Constants.DriveConstants.LEFT_MOTOR_PIN_3);
 
-  Victor rightMotor1 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_1);
-  Victor rightMotor2 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_2);
-  Victor rightMotor3 = new Victor(Constants.DriveConstants.RIGHT_MOTOR_PIN_3);
-
-   // Controller Groups
-  private final MotorControllerGroup leftControllerGroup = new MotorControllerGroup(leftMotor1, leftMotor2, leftMotor3);
-  private final MotorControllerGroup rightControllerGroup = new MotorControllerGroup(rightMotor1, rightMotor2, rightMotor3);
+  WPI_VictorSPX rightMotor1 = new WPI_VictorSPX(Constants.DriveConstants.RIGHT_MOTOR_PIN_1);
+  WPI_VictorSPX rightMotor2 = new WPI_VictorSPX(Constants.DriveConstants.RIGHT_MOTOR_PIN_2);
+  WPI_VictorSPX rightMotor3 = new WPI_VictorSPX(Constants.DriveConstants.RIGHT_MOTOR_PIN_3);
 
   // The robot's drive
-  private final DifferentialDrive differentialDrive = new DifferentialDrive(leftControllerGroup, rightControllerGroup);
+  private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMotor1, rightMotor1);
 
   // The Encoders drive encoder
   private final Encoder leftEncoder = new Encoder(Constants.DriveConstants.kLeftEncoderPorts[0], Constants.DriveConstants.kLeftEncoderPorts[1]);
@@ -63,7 +62,12 @@ public class DriveSubsystem extends SubsystemBase {
   // We need to invert one side of the drivetrain so that positive voltages
   // result in both sides moving forward. Depending on how your robot's
   // gearbox is constructed, you might have to invert the left side instead.
-  rightControllerGroup.setInverted(true);
+  rightMotor1.setInverted(true);
+  rightMotor2.follow(rightMotor1);
+  rightMotor3.follow(rightMotor1);
+  
+  leftMotor2.follow(leftMotor1);
+  leftMotor3.follow(leftMotor1);
 
   // Sets the distance per pulse for the encoders
   leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
@@ -82,7 +86,6 @@ public void periodic() {
 }
 
 public void arcadeDrive(){
-  differentialDrive.arcadeDrive(JoystickIOConstants.getRawAxis(1), JoystickIOConstants.getRawAxis(0));
 }
 
 public void tankDrive(){
@@ -140,8 +143,8 @@ public void resetOdometry(Pose2d pose) {
 * @param rightVolts the commanded right output
 */
 public void tankDriveVolts(double leftVolts, double rightVolts) {
- leftControllerGroup.setVoltage(leftVolts);
- rightControllerGroup.setVoltage(rightVolts);
+ leftMotor1.setVoltage(leftVolts);
+ rightMotor1.setVoltage(rightVolts);
  differentialDrive.feed();
 }
 
