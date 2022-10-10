@@ -33,6 +33,7 @@ public final class Constants {
     public static final int LEFT_MOTOR_PIN_1 = 3;
     public static final int LEFT_MOTOR_PIN_2 = 4;
     public static final int LEFT_MOTOR_PIN_3 = 5;
+    
     public static final int RIGHT_MOTOR_PIN_1 = 0;
     public static final int RIGHT_MOTOR_PIN_2 = 1;
     public static final int RIGHT_MOTOR_PIN_3 = 2;
@@ -52,7 +53,7 @@ public final class Constants {
     public static final double GYRO_KI = 0;
     public static final double GYRO_KD = 0;
 
-    public static final double REDUCTION_GEAR = 10.71;
+    public static final double REDUCTION_GEAR = 1;
     public static final double WHEEL_DIAMETER_INCHES = 6;
     public static final double ENCODER_PPR = 80;
 

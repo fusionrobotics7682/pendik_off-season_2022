@@ -9,8 +9,11 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.n_transaction.ThrowThreeBallCmd;
+import frc.robot.commands.n_transaction.ThrowTwoBallCmd;
 import frc.robot.commands.unit_transaction.chassis_cmd.tele_op.ArcadeDriveCmd;
 import frc.robot.commands.unit_transaction.feeder_cmd.tele_op.GetInFeederCmd;
 import frc.robot.commands.unit_transaction.feeder_cmd.tele_op.GetOutFeederCmd;
@@ -35,6 +38,10 @@ import frc.robot.triggers.TimerTrigger;
  */
 public class RobotContainer {
 
+  PIDTrigger degreeTrigger = new PIDTrigger();
+  PIDTrigger meterTrigger = new PIDTrigger();
+  TimerTrigger timerTrigger = new TimerTrigger();
+
   // Cameras and joysticks defined here
   Joystick joystick = JoystickIOConstants.getJoystick();
   UsbCamera frontCamera;
@@ -46,15 +53,19 @@ public class RobotContainer {
   FeederSubsystem feederSubsystem = new FeederSubsystem();
   ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 
-  PIDTrigger degreeTrigger = new PIDTrigger();
-  PIDTrigger meterTrigger = new PIDTrigger();
-  TimerTrigger timerTrigger = new TimerTrigger();
+  ThrowTwoBallCmd twoBallCmd = new ThrowTwoBallCmd(driveSubsystem, intakeSubsystem, feederSubsystem, shooterSubsystem, degreeTrigger, meterTrigger);
+  ThrowThreeBallCmd threeBallCmd = new ThrowThreeBallCmd(driveSubsystem, intakeSubsystem, feederSubsystem, shooterSubsystem, degreeTrigger, meterTrigger);
+
+  private SendableChooser autoChooser = new SendableChooser();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveSubsystem.setDefaultCommand(new ArcadeDriveCmd(driveSubsystem));
     frontCamera = CameraServer.startAutomaticCapture(0);
     rearCamera = CameraServer.startAutomaticCapture(1);
+    autoChooser.setDefaultOption("2 Ball Auto :", twoBallCmd);
+    autoChooser.addOption("3 Ball Auto :", threeBallCmd);
+
     // Configure the button bindings
     configureButtonBindings();
   }

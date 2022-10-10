@@ -23,11 +23,8 @@ import frc.robot.triggers.PIDTrigger;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ThrowThreeBallCmd extends SequentialCommandGroup {
 
-  PIDTrigger degreeTrigger = new PIDTrigger();
-  PIDTrigger meterTrigger = new PIDTrigger();
-
   /** Creates a new ThrowThreeBallCmd. */
-  public ThrowThreeBallCmd(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, FeederSubsystem feederSubsystem, ShooterSubsystem shooterSubsystem) {
+  public ThrowThreeBallCmd(DriveSubsystem driveSubsystem, IntakeSubsystem intakeSubsystem, FeederSubsystem feederSubsystem, ShooterSubsystem shooterSubsystem, PIDTrigger degreeTrigger, PIDTrigger meterTrigger) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

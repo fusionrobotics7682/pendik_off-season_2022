@@ -29,7 +29,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void shoot(double setPointVelocity){
-    currentVelocity = controller.runXVelocity(setPointVelocity);
+    currentVelocity = controller.runShooterXVelocity(setPointVelocity);
     shooter1.set(currentVelocity);
     shooter2.follow(shooter1);
   }

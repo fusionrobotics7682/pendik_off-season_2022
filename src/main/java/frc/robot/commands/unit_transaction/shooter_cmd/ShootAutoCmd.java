@@ -42,6 +42,7 @@ public class ShootAutoCmd extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Run cmd until balls are shot
     if(feederSubsystem.getShooterColorSensorV3().getProximity() < 100 && feederSubsystem.getFeederColorSensorV3().getProximity() < 100){
       return true;
     }
